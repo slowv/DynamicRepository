@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:9000/postgres
+    username: admin
+    password: 123456
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL82Dialect
+    database: postgresql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
