@@ -41,7 +41,7 @@ public class MasterRepository<T extends AbstractAuditingEntity, ID> {
     }
 
     // Tuple
-    private <D> List<D> findAllCustom(String sql, Supplier<D> supplier) {
+    private <D> List<D> findAll(String sql, Supplier<D> supplier) {
         final List<Tuple> resultList = entityManager.createQuery(sql, Tuple.class).getResultList();
         return TupleUtils.map(resultList, supplier);
     }
