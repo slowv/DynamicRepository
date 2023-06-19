@@ -19,15 +19,16 @@ public final class TupleUtils {
     public static <U> U map(Tuple tuple, U u) {
         final Class<?> type = u.getClass();
         List<Field> fields = new ArrayList<>();
-        ReflectionUtils.doWithFields(type, fields::add);
-        fields.removeIf(field -> !field.isAnnotationPresent(TupleField.class));
+        ReflectionUtils.doWithFields(type, fields::add, field -> !field.isAnnotationPresent(TupleField.class));
         fields.forEach(field -> {
             final String name = field.getName();
             try {
+                ReflectionUtils.makeAccessible(field);
                 final TupleField annotation = field.getAnnotation(TupleField.class);
                 final String alias = annotation.alias();
                 final Class<?> resultType = annotation.type();
                 final Method method = type.getDeclaredMethod("set" + StringUtils.capitalize(name));
+                ReflectionUtils.makeAccessible(method);
                 method.invoke(u, tuple.get(alias, resultType));
             } catch (IllegalArgumentException ignore) {
             } catch (Exception ex) {
