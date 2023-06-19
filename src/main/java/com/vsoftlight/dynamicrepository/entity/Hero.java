@@ -12,12 +12,7 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "hero")
-public class Hero {
-    @Id
-    @TupleField(alias = "identity", type = Long.class)
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Hero extends AbstractAuditingEntity {
 
     @Column(name = "name", unique = true)
     @TupleField(alias = "display", type = String.class)
